@@ -3,7 +3,6 @@ import { ref } from "vue";
 import Camera from "simple-vue-camera";
 import axios from "axios";
 import Result from "./Result.vue";
-import UploadImage from "./UploadImage.vue";
 
 const loading = ref(false);
 const cameraRef = ref(null);
@@ -124,27 +123,29 @@ async function detectWithRoboFlow(image) {
             @change="handleFileInputChange"
         />
     </div>
-    <button
-        class="btn get-result"
-        :class="{ 'active-btn': loading }"
-        @click="snapshot"
-    >
-        <div class="btn-loading" v-if="loading">
-            <div class="loader"></div>
-            <span class="btn-text">Loading</span>
-        </div>
-        <span v-else>Snapshot & detect</span>
-    </button>
-    <button
-        class="btn get-result"
-        :class="{ 'active-btn': loading }"
-        @click="reset"
-    >
-        Reset
-    </button>
-    <label for="file-input" class="btn get-result">Choose Image</label>
-
-    <!-- <UploadImage /> -->
+    <div class="grid grid-cols-4 sm:grid-cols-2">
+        <button
+            class="btn get-result"
+            :class="{ 'active-btn': loading }"
+            @click="snapshot"
+        >
+            <div class="btn-loading" v-if="loading">
+                <div class="loader"></div>
+                <span class="btn-text">Loading</span>
+            </div>
+            <span v-else>Snapshot & detect</span>
+        </button>
+        <button
+            class="btn get-result"
+            :class="{ 'active-btn': loading }"
+            @click="reset"
+        >
+            Reset
+        </button>
+        <button class="btn get-result mt-sm-2">
+            <label for="file-input"> Choose Image </label>
+        </button>
+    </div>
 
     <Result :results="result" />
 </template>
